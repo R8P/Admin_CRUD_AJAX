@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <title>ADMIN</title>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" crossorigin="anonymous">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="container">
+    <div class="title">
+      <h1 class="mainTitle">ADMIN PANEL</h1>
+    </div>
+
+    <button id="newUser" class="btn btn-primary btn-block">New User</button><br /><br />
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+      aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">User Details</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <span id="detailName">Company:</span>
+            <span id="detailUrl">URL:</span>
+            <span id="detailText">Text:</span>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <form method="POST" id="firstForm" enctype="multipart/form-data">
+      <div class="form-group row">
+        <label for="fname" class="col-sm-2 col-form-label">First Name</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="fname" placeholder="First Name">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="lname" class="col-sm-2 col-form-label">Last Name</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="lname" placeholder="Last Name">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="email" class="col-sm-2 col-form-label">Email</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="email" placeholder="Email">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="avatar" class="col-sm-2 col-form-label">Avatar URL</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="avatar" placeholder="URL">
+        </div>
+      </div>
+      <button id="submitButton" type="submit" class="btn btn-primary">ADD USER</button>
+    </form>
+
+    <div id="updateFormDiv">
+      <form id="updateForm">
+        <div class="col-sm-10">
+          <input type="hidden" class="form-control" id="tutId">
+        </div>
+        <div class="form-group row">
+          <label for="updateFname" class="col-sm-2 col-form-label">First Name</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="updateFname" placeholder="First Name">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="updateLname" class="col-sm-2 col-form-label">Last Name</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="updateLname" placeholder="Last Name">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="updateEmail" class="col-sm-2 col-form-label">Email</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="updateEmail" placeholder="Email">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="updateAvatar" class="col-sm-2 col-form-label">Avatar URL</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="updateAvatar" placeholder="URL">
+          </div>
+        </div>
+        <button id="updateButton" type="submit" class="btn btn-primary">UPDATE USER</button>
+      </form>
+    </div>
+    <table id="userTable" class="table">
+      <thead>
+        <tr>
+          <th scope="col">Id</th>
+          <th scope="col">Email</th>
+          <th scope="col">Firstname</th>
+          <th scope="col">Lastname</th>
+          <th scope="col">Avatar</th>
+          <th scope="col">Edit</th>
+          <th scope="col">Delete</th>
+        </tr>
+      </thead>
+      <tbody id="tbody"></tbody>
+    </table>
+  </div>
+
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+  <!-- Custom JS -->
+  <script src="script.js"></script>
+</body>
+
+</html>
