@@ -5,15 +5,15 @@ $(document).ready(function () {
     $("#newUser").on("click", function (e) {
         $("#firstForm").toggle()
     })
-
+    //Delete Icon
     $('body').on('click', '.deleteTut', function () {
         deleteUsers($(this).data("tutid"))
     })
+    //Edit Icon
     $('body').on('click', '.editTut', function () {
         getOneUser($(this).data("tutid"))
     })
-
-
+    //Submit Button
     $("#submitButton").on("click", function (e) {
         e.preventDefault()
 
@@ -28,6 +28,7 @@ $(document).ready(function () {
         $("#firstForm").trigger("reset")
         $("#firstForm").toggle();
     })
+    //Update Button
     $("#updateButton").on("click", function (e) {
         e.preventDefault();
         let data = {
@@ -36,14 +37,14 @@ $(document).ready(function () {
             email: $($("#updateForm")[0].updateEmail).val(),
             avatar: $($("#updateForm")[0].updateAvatar).val()
         }
-        putUsers($($("#updateForm")[0].tutId).val(), data);
+        putUsers($($("#updateForm")[0].tutId).val(), data)
         getOneUser($(this).data("tutid"))
 
         $("#updateForm").trigger("reset")
         $("#updateForm").toggle();
     })
 })
-//ALL USERS
+//USERS LIST
 function getUsers() {
     $('#tbody').html('')
     $.ajax({
@@ -90,12 +91,12 @@ function getOneUser(id) {
         method: 'GET',
         dataType: 'json',
         success: function (response) {
-            $($("#updateForm")[0].tutId).val(response.data.id);
-            $($("#updateForm")[0].updateFname).val(response.data.first_name);
-            $($("#updateForm")[0].updateLname).val(response.data.last_name);
-            $($("#updateForm")[0].updateEmail).val(response.data.email);
-            $($("#updateForm")[0].updateAvatar).val(response.data.avatar);
-            $("#updateForm").show();
+            $($("#updateForm")[0].tutId).val(response.data.id)
+            $($("#updateForm")[0].updateFname).val(response.data.first_name)
+            $($("#updateForm")[0].updateLname).val(response.data.last_name)
+            $($("#updateForm")[0].updateEmail).val(response.data.email)
+            $($("#updateForm")[0].updateAvatar).val(response.data.avatar)
+            $("#updateForm").show()
         }
     });
 }
@@ -107,28 +108,13 @@ function postUsers(data) {
         dataType: 'json',
         data: data,
         success: function (response) {
-            /*   img onclick="window.open('${item.avatar}', '_blank'); */
-            $('#userTable > tbody:last-child').append("<tr data-dId='" + response.id + "'><th scope='row'>" + response.id + " </th><td>" + response.email + "</td><td id='fname'>" + response.firstName + "</td><td>" + response.lastName + "</td><td><img onclick='window.open(" + response.avatar + ",'_blank');' src='" + response.avatar + "'></td><td><i class='far fa-edit editTut' data-tutid='" + response.id + "'></i></td><td><i class='fas fa-trash deleteTut' data-tutid='" + response.id + "''></i></td></tr>");
+            $('#userTable > tbody:last-child').append("<tr data-dId='" + response.id + "'><th scope='row'>" + response.id + " </th><td>" + response.email + "</td><td id='fname'>" + response.firstName + "</td><td>" + response.lastName + "</td><td><img onclick='window.open(" + response.avatar + ",'_blank');' src='" + response.avatar + "'></td><td><i class='far fa-edit editTut' data-tutid='" + response.id + "'></i></td><td><i class='fas fa-trash deleteTut' data-tutid='" + response.id + "''></i></td></tr>")
 
 
             console.log(response)
         }
     })
 }
-
-//EDIT & DELETE BUTTONS
-/*    function loadButtons() {
-       $(".editTut").click(function (e) {
-           e.preventDefault();
-           getOneUser($(this).data("tutid"))
-       });
-
-       $(".deleteTut").click(function (e) {
-           e.preventDefault();
-           //deleteUsers($($(this)[0]).data("tutid"));
-           deleteUsers($(this).data("tutid"))
-       })
-   } */
 
 //UPDATE USERS
 function putUsers(id, data) {
@@ -139,9 +125,9 @@ function putUsers(id, data) {
         data: data,
         success: function (response) {
             console.log(response);
-            $("tr[data-did='"+id+"'] > td[id='fname']")[0].innerHTML = response.firstName + '<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" onClick="userDetail('+id+')">Details</button>';
+            $("tr[data-did='"+id+"'] > td[id='fname']")[0].innerHTML = response.firstName + '<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" onClick="userDetail('+id+')">Details</button>'
         }
-    });
+    })
 }
 //DELETE USER
 function deleteUsers(id) {
@@ -153,7 +139,7 @@ function deleteUsers(id) {
             console.log(response);
         }
     })
-    $("tr[data-dId='" + id + "']").remove();
+    $("tr[data-dId='" + id + "']").remove()
 }
 
 
