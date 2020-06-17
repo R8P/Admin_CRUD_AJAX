@@ -72,6 +72,7 @@ function userDetail(userid) {
             $("span#detailName").text(response.ad.company)
             $("span#detailUrl").text(response.ad.url)
             $("span#detailText").text(response.ad.text)
+            $("span#detailEmail").text(response.data.email)
         }
     })
 }
