@@ -44,6 +44,8 @@ $(document).ready(function () {
         $("#updateForm").toggle();
     })
 })
+
+
 //USERS LIST
 function getUsers() {
     $('#tbody').html('')
@@ -53,19 +55,9 @@ function getUsers() {
         dataType: 'json',
         data: {},
         success: function (response) {
-            var trArr = new Array()
             $.each(response.data, function (i, item) {
-                trArr.push(`<tr data-dId="${item.id}">
-                <th scope="row">${item.id}</th>
-                <td>${item.email}</td>
-                <td id="fname">${item.first_name}<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" onClick="userDetail(${item.id})">Details</button></td>
-                <td>${item.last_name}</td>
-                <td><a id="imagelink" href=""><img onclick="window.open('${item.avatar}', '_blank');" src="${item.avatar}"></a></td>
-                <td><i class="far fa-edit editTut" data-tutid="${item.id}"></i></td>
-                <td><i class="fas fa-trash deleteTut" data-tutid="${item.id}"></i></td>
-            </tr>`)
+                $('#tbody').append("<tr data-dId='" + item.id + "'><th scope='row'>" + item.id + " </th><td>" + item.email + "</td><td id='fname'>" + item.first_name + "<button type='button' class='btn btn-primary' data-toggle='modal' data-target='#exampleModalCenter' onClick='userDetail("+item.id+")'>Details</button></td><td>" + item.last_name + "</td><td><a href='"+item.avatar+"' target='_blank'><img src="+ item.avatar +"></a></td><td><i class='far fa-edit editTut' data-tutid='" + item.id + "'></i></td><td><i class='fas fa-trash deleteTut' data-tutid='" + item.id + "''></i></td></tr>")
             })
-            $('#tbody').append(trArr)
         }
     })
 }
