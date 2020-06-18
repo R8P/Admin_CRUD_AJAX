@@ -44,19 +44,20 @@ $(document).ready(function () {
         $("#updateForm").toggle();
     })
 })
-
+const API_URL = "https://reqres.in/api/users/";
 
 //USERS LIST
 function getUsers() {
     $('#tbody').html('')
     $.ajax({
-        url: "https://reqres.in/api/users?per_page=12",
+        /*  url: "https://reqres.in/api/users?per_page=12", */
+        url: API_URL + "?per_page=12",
         method: ('GET'),
         dataType: 'json',
         data: {},
         success: function (response) {
             $.each(response.data, function (i, item) {
-                $('#tbody').append("<tr data-dId='" + item.id + "'><th scope='row'>" + item.id + " </th><td>" + item.email + "</td><td id='fname'>" + item.first_name + "<button type='button' class='btn btn-primary' data-toggle='modal' data-target='#exampleModalCenter' onClick='userDetail("+item.id+")'>Details</button></td><td>" + item.last_name + "</td><td><a href='"+item.avatar+"' target='_blank'><img src="+ item.avatar +"></a></td><td><i class='far fa-edit editTut' data-tutid='" + item.id + "'></i></td><td><i class='fas fa-trash deleteTut' data-tutid='" + item.id + "''></i></td></tr>")
+                $('#tbody').append("<tr data-dId='" + item.id + "'><th scope='row'>" + item.id + " </th><td>" + item.email + "</td><td id='fname'>" + item.first_name + "<button type='button' class='btn btn-primary' data-toggle='modal' data-target='#exampleModalCenter' onClick='userDetail(" + item.id + ")'>Details</button></td><td>" + item.last_name + "</td><td><a href='" + item.avatar + "' target='_blank'><img src=" + item.avatar + "></a></td><td><i class='far fa-edit editTut' data-tutid='" + item.id + "'></i></td><td><i class='fas fa-trash deleteTut' data-tutid='" + item.id + "''></i></td></tr>")
             })
         }
     })
@@ -64,7 +65,7 @@ function getUsers() {
 //USER DETAIL MODAL
 function userDetail(userid) {
     $.ajax({
-        url: "https://reqres.in/api/users/" + userid,
+        url: API_URL + userid,
         method: 'GET',
         dataType: 'json',
         success: function (response) {
@@ -72,7 +73,6 @@ function userDetail(userid) {
             $("span#detailName").text(response.ad.company)
             $("span#detailUrl").text(response.ad.url)
             $("span#detailText").text(response.ad.text)
-            $("span#detailEmail").text(response.data.email)
         }
     })
 }
@@ -80,7 +80,7 @@ function userDetail(userid) {
 //SINGLE USER
 function getOneUser(id) {
     $.ajax({
-        url: 'https://reqres.in/api/users/' + id,
+        url: API_URL + id,
         method: 'GET',
         dataType: 'json',
         success: function (response) {
@@ -96,12 +96,12 @@ function getOneUser(id) {
 //ADD USERS
 function postUsers(data) {
     $.ajax({
-        url: "https://reqres.in/api/users",
+        url: API_URL,
         method: ('POST'),
         dataType: 'json',
         data: data,
         success: function (response) {
-            $('#userTable > tbody:last-child').append("<tr data-dId='" + response.id + "'><th scope='row'>" + response.id + " </th><td>" + response.email + "</td><td id='fname'>" + response.firstName + "</td><td>" + response.lastName + "</td><td><img onclick='window.open(" + response.avatar + ",'_blank');' src='" + response.avatar + "'></td><td><i class='far fa-edit editTut' data-tutid='" + response.id + "'></i></td><td><i class='fas fa-trash deleteTut' data-tutid='" + response.id + "''></i></td></tr>")
+            $('#userTable > tbody:last-child').append("<tr data-dId='" + response.id + "'><th scope='row'>" + response.id + " </th><td>" + response.email + "</td><td id='fname'>" + response.firstName + "<button type='button' class='btn btn-primary' data-toggle='modal' data-target='#exampleModalCenter' onClick='userDetail(" + response.id + ")'>Details</button></td><td>" + response.lastName + "</td><td><a href='" + response.avatar + " 'target='_blank'><img src='" + response.avatar + "'><a/></td><td><i class='far fa-edit editTut' data-tutid='" + response.id + "'></i></td><td><i class='fas fa-trash deleteTut' data-tutid='" + response.id + "''></i></td></tr>")
 
 
             console.log(response)
@@ -112,32 +112,27 @@ function postUsers(data) {
 //UPDATE USERS
 function putUsers(id, data) {
     $.ajax({
-        url: 'https://reqres.in/api/users/' + id,
+        url: API_URL + id,
         method: 'PUT',
         dataType: 'json',
         data: data,
         success: function (response) {
-            console.log(response);
-            $("tr[data-did='"+id+"'] > td[id='fname']")[0].innerHTML = response.firstName + '<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" onClick="userDetail('+id+')">Details</button>'
+            $("tr[data-did='" + id + "'] > td[id='fname']")[0].innerHTML = response.firstName + '<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" onClick="userDetail(' + id + ')">Details</button>'
         }
     })
 }
 //DELETE USER
 function deleteUsers(id) {
-    $.ajax({
-        url: 'https://reqres.in/api/users/' + id,
-        method: 'DELETE',
-        dataType: 'json',
-        success: function (response) {
-            console.log(response);
-        }
-    })
+    let confirmation = confirm('Are you sure?')
+    if (confirmation) {
+        $.ajax({
+            url: API_URL + id,
+            method: 'DELETE',
+            dataType: 'json',
+            success: function (response) {
+                console.log(response);
+            }
+        })
+    }
     $("tr[data-dId='" + id + "']").remove()
 }
-
-
-
-
-
-
-
